@@ -16,6 +16,13 @@ jobs:
     - name: Install sshpass
       run: sudo apt-get install -y sshpass
 
+    - name: Add SSH host to known_hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H jkartik.in >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+        ls ~/.ssh  # Check the contents of the .ssh directory for debugging purposes.
+
     - name: Deploy to Server using SSH with password
       run: |
         sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -v -r ./ jkartik@jkartik.in:/home/jkartik/portfolio
