@@ -18,4 +18,4 @@ jobs:
 
     - name: Deploy to Server using SSH with password
       run: |
-        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r ./ jkartik@jkartik.in:/home/jkartik/portfolio
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -v -r ./ jkartik@jkartik.in:/home/jkartik/portfolio
