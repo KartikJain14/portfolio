@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const hint = document.getElementById("autocompleteHint");
     const mirror = document.getElementById("inputMirror");
 
-    const helpMessage = `<pre>
+    const helpMessage = `
     <b>Available commands:</b>
 
     <b>help</b>        - Show this help message
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <b>github</b>      - Open my GitHub profile in a new tab
     <b>neofetch</b>    - Display system info (Arch Linux style)
     <b>clear</b>       - Clear the terminal
-    </pre>`;
+    `;
 
 
     const commands = {
