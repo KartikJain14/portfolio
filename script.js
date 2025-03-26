@@ -6,19 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const mirror = document.getElementById("inputMirror");
 
     const helpMessage = `
-    <b>Available commands:</b>
-
-    <b>help</b>        - Show this help message
-    <b>whoami</b>      - Display my identity
-    <b>skills</b>      - Display my skills
-    <b>projects</b>    - Show my featured projects
-    <b>awards</b>      - Display my achievements
-    <b>others</b>      - Display my management experience / soft skills
-    <b>linkedin</b>    - Open my LinkedIn profile in a new tab
-    <b>github</b>      - Open my GitHub profile in a new tab
-    <b>neofetch</b>    - Display system info (Arch Linux style)
-    <b>clear</b>       - Clear the terminal
-    `;
+    <b>Available commands:</b><br>
+    <br>
+    <b>help</b>        - Show this help message<br>
+    <b>whoami</b>      - Display my identity<br>
+    <b>skills</b>      - Display my skills<br>
+    <b>projects</b>    - Show my featured projects<br>
+    <b>awards</b>      - Display my achievements<br>
+    <b>others</b>      - Display my management experience / soft skills<br>
+    <b>linkedin</b>    - Open my LinkedIn profile in a new tab<br>
+    <b>github</b>      - Open my GitHub profile in a new tab<br>
+    <b>neofetch</b>    - Display system info (Arch Linux style)<br>
+    <b>clear</b>       - Clear the terminal<br>
+    <br>`;
 
 
     const commands = {
