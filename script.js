@@ -120,12 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
         commandHistory.push(cmd);
         historyIndex = commandHistory.length;
 
+        if (aliases[cmd]) cmd = aliases[cmd];
+
         if (cmd === "clear" || cmd === "exit") {
             resetTerminal();
             return;
         }
-
-        if (aliases[cmd]) cmd = aliases[cmd];
 
         let response = typeof commands[cmd] === "function" ? commands[cmd]() : commands[cmd] || getClosestCommand(cmd);
         appendCommand(cmd, response);
