@@ -5,21 +5,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const hint = document.getElementById("autocompleteHint");
     const mirror = document.getElementById("inputMirror");
 
-    const helpMessage = `
-    <b>Available commands:</b><br>
-    <br>
-    <b>help</b>        - Show this help message<br>
-    <b>whoami</b>      - Display my identity<br>
-    <b>skills</b>      - Display my skills<br>
-    <b>projects</b>    - Show my featured projects<br>
-    <b>awards</b>      - Display my achievements<br>
-    <b>others</b>      - Display my management experience / soft skills<br>
-    <b>linkedin</b>    - Open my LinkedIn profile in a new tab<br>
-    <b>github</b>      - Open my GitHub profile in a new tab<br>
-    <b>neofetch</b>    - Display system info (Arch Linux style)<br>
-    <b>clear</b>       - Clear the terminal<br>
-    <br>`;
+    let commandHistory = [];
+    let historyIndex = -1;
 
+    const helpMessage = `
+    <b>💻 System Commands:</b><br>
+    <b>help or h</b>        - Show available commands<br>
+    <b>clear or cls</b>       - Clear the terminal<br>
+    <b>neofetch or fetch</b>    - Display system info (Arch Linux style)<br>
+    <br>
+    <b>👤 Personal Information:</b><br>
+    <b>whoami</b>      - Display my identity<br>
+    <b>skills</b>      - Show my technical skills<br>
+    <b>projects</b>    - List my featured projects<br>
+    <b>awards</b>      - Display my achievements<br>
+    <b>others</b>      - Show my management/soft skills<br>
+    <br>
+    <b>🌐 Online Profiles:</b><br>
+    <b>linkedin or ln</b>    - Open my LinkedIn profile<br>
+    <b>github or gh</b>      - Open my GitHub profile<br>
+    <br>
+    <b>📄 Documents:</b><br>
+    <b>resume or r</b>      - Download my resume<br>
+    `;
 
     const commands = {
         help: helpMessage,
@@ -30,14 +38,22 @@ document.addEventListener("DOMContentLoaded", function () {
         <span class="blue">     /  \\     </span>  OS: Arch Linux
         <span class="blue">    /    \\    </span>  Hostname: jkartik.in
         <span class="blue">   /  /\\  \\   </span>  Time: ${currentTime}
-        <span class="blue">  /  (--)  \\  </span>  Email: <a href="mailto:a.contact@jkartik.in" class="custom-link">contact@jkartik.in</a>
+        <span class="blue">  /  (--)  \\  </span>  Email: <a href="mailto:contact@jkartik.in" class="custom-link">contact@jkartik.in</a>
         <span class="blue"> /  /    \\  \\ </span>  GitHub: <a href="https://GitHub.com/KartikJain14" target="_blank" class="custom-link">GitHub.com/KartikJain14</a>
         <span class="blue">/___\\    /___\\</span>  LinkedIn: <a href="https://LinkedIn.com/in/KartikJain1410" target="_blank" class="custom-link">LinkedIn.com/in/KartikJain1410</a>
         </pre>`;
         },
 
-        github: `Opening <a href="https://GitHub.com/KartikJain14" target="_blank" class="custom-link">GitHub/KartikJain14</a>...`,
-        linkedin: `Opening <a href="https://LinkedIn.com/in/KartikJain1410" target="_blank" class="custom-link">LinkedIn/KartikJain1410</a>...`,
+        github: () => {
+            window.open("https://github.com/KartikJain14", "_blank");
+            return `Opening <a href="https://github.com/KartikJain14" target="_blank" class="custom-link">GitHub/KartikJain14</a>...`;
+        },
+
+        linkedin: () => {
+            window.open("https://linkedin.com/in/KartikJain1410", "_blank");
+            return `Opening <a href="https://linkedin.com/in/KartikJain1410" target="_blank" class="custom-link">LinkedIn/KartikJain1410</a>...`;
+        },
+
         projects: `
         - Backend: Taqneeq App's Backend, Mumbai MUN's Backend, ACM's Website Backend (Certification Portal)<br>
         - App Integrations: Integrate Dynamic data with backend to the flutter app.<br>
@@ -69,11 +85,31 @@ document.addEventListener("DOMContentLoaded", function () {
         - Managed a team of 5+ developers for NMIMS' official Technical Fest
         `,
         whoami: `<a href="https://jkartik.in" class="custom-link">Kartik Jain</a> | Backend Developer`,
+
+        resume: () => {
+            const link = document.createElement("a");
+            link.href = "/resume.pdf";
+            link.download = "Kartik_Resume.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            return "Downloading resume...";
+        },
+
         clear: () => resetTerminal(),
         exit: () => resetTerminal(),
     };
 
-    const commandList = Object.keys(commands);
+    const aliases = {
+        gh: "github",
+        ln: "linkedin",
+        r: "resume",
+        cls: "clear",
+        h: "help",
+        fetch: "neofetch"
+    };
+
+    const commandList = Object.keys(commands).concat(Object.keys(aliases));
 
     function processCommand(cmd) {
         if (cmd === "") {
@@ -81,17 +117,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        commandHistory.push(cmd);
+        historyIndex = commandHistory.length;
+
         if (cmd === "clear" || cmd === "exit") {
             resetTerminal();
             return;
         }
 
-        // Open GitHub and LinkedIn links automatically in a new tab
-        if (cmd === "github") {
-            window.open("https://GitHub.com/KartikJain14", "_blank");
-        } else if (cmd === "linkedin") {
-            window.open("https://LinkedIn.com/in/KartikJain1410", "_blank");
-        }
+        if (aliases[cmd]) cmd = aliases[cmd];
 
         let response = typeof commands[cmd] === "function" ? commands[cmd]() : commands[cmd] || getClosestCommand(cmd);
         appendCommand(cmd, response);
@@ -155,6 +189,21 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (event.key === "ArrowRight" || event.key === "Tab") {
             event.preventDefault();
             autocompleteCommand();
+        } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                input.value = commandHistory[historyIndex];
+            }
+        } else if (event.key === "ArrowDown") {
+            event.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                input.value = commandHistory[historyIndex];
+            } else {
+                historyIndex = commandHistory.length;
+                input.value = "";
+            }
         }
     });
 
