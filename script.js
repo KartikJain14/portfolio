@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const commandList = Object.keys(commands).concat(Object.keys(aliases));
 
     function processCommand(cmd) {
+        cmd.toLowerCase();
         if (cmd === "") {
             output.scrollTop = output.scrollHeight;
             return;
