@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         resultLine.innerHTML = result;
         output.appendChild(resultLine);
 
-        output.scrollTop = output.scrollHeight;
+        input.scrollIntoView({ behavior: "smooth" });
     }
 
     function getClosestCommand(inputCmd) {
