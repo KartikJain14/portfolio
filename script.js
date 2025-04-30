@@ -181,6 +181,22 @@ document.addEventListener("DOMContentLoaded", function () {
         hint.textContent = "";
     }
 
+    function createCommandBar() {
+        const bar = document.getElementById("command-bar");
+    
+        const allCommands = Object.keys(commands);
+    
+        [...allCommands].sort().forEach(cmd => {
+            const button = document.createElement("button");
+            button.textContent = cmd;
+            button.dataset.cmd = cmd;
+            button.addEventListener("click", () => {
+                processCommand(cmd);
+            });
+            bar.appendChild(button);
+        });
+    }
+
     input.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
@@ -215,4 +231,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     resetTerminal();
+    createCommandBar();
 });

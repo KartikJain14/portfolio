@@ -12,67 +12,75 @@ body {
     font-family: "Fira Code", monospace;
     height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    overflow: auto; /* Allow page scrolling */
+    align-items: center;
+    overflow: auto;
+    padding: 20px;
 }
 
+#terminal-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Terminal Container */
 #terminal-container {
-    position: relative;
-    width: 80%;
-    max-width: 900px;
-    background: rgba(20, 20, 20, 0.8);
+    background: rgba(20, 20, 20, 0.85);
     border-radius: 8px;
-    box-shadow: 0px 0px 20px rgba(0, 255, 153, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.2);
     padding: 20px;
     backdrop-filter: blur(10px);
-    z-index: 1;
-    cursor: text;
+    min-width: 700px;
+    max-width: 700px;
+    min-height: 500px;
+    max-height: 500px;
     display: flex;
     flex-direction: column;
-    min-height: 400px; /* Restoring the original minimum height */
-    max-height: 70vh; /* Ensuring it doesn’t get too large */
-    overflow-y: auto; /* Terminal scrolling */
+    overflow: hidden;
+    position: relative;
+    cursor: text;
 }
 
-/* Custom Kitty-like scrollbar */
-#terminal-container::-webkit-scrollbar {
+/* Scrollable area inside terminal */
+#terminal {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Kitty-like scrollbars */
+#terminal::-webkit-scrollbar {
     width: 8px;
 }
-
-#terminal-container::-webkit-scrollbar-track {
+#terminal::-webkit-scrollbar-track {
     background: rgba(0, 255, 153, 0.1);
     border-radius: 10px;
 }
-
-#terminal-container::-webkit-scrollbar-thumb {
+#terminal::-webkit-scrollbar-thumb {
     background: #00ff99;
     border-radius: 10px;
 }
-
-#terminal-container::-webkit-scrollbar-thumb:hover {
+#terminal::-webkit-scrollbar-thumb:hover {
     background: #00cc77;
 }
 
-#terminal {
-    flex-grow: 1;
-    padding: 10px;
-    overflow-y: auto;
-}
-
+/* Input */
 .input-line {
     display: flex;
     align-items: center;
 }
-
 .autocomplete-container {
     display: flex;
     align-items: center;
     position: relative;
     width: 100%;
-    font-family: "Fira Code", monospace;
 }
-
 #commandInput, #inputMirror {
     background: transparent;
     border: none;
@@ -82,35 +90,24 @@ body {
     outline: none;
     white-space: pre;
 }
-
 #inputMirror {
     visibility: hidden;
     position: absolute;
     white-space: pre;
 }
-
 #autocompleteHint {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(0, 255, 153, 0.5);
     font-size: 18px;
-    font-family: "Fira Code", monospace;
-    pointer-events: none;
-    white-space: pre;
     position: absolute;
+    margin-left: 5px;
+    white-space: pre;
+    pointer-events: none;
 }
-
 .prompt {
     color: #00ff99;
     font-weight: bold;
     margin-right: 5px;
 }
-
-#autocompleteHint {
-    color: rgba(0, 255, 153, 0.5);
-    position: absolute;
-    margin-left: 5px;
-    pointer-events: none;
-}
-
 input {
     background: transparent;
     border: none;
@@ -121,23 +118,69 @@ input {
     outline: none;
 }
 
+/* Terminal Output Styling */
 .help-message {
     opacity: 0.6;
     font-style: italic;
     padding-bottom: 10px;
 }
-
 .command-line {
     margin-top: 10px;
 }
-
 .command-result {
     margin-left: 20px;
 }
-
 .custom-link {
     color: #00ff99 !important;
     text-decoration: underline;
     font-weight: bold;
     font-size: 1.1em;
+}
+
+/* Command Bar (Button Panel) */
+#command-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    flex: 1 1 200px;
+    max-width: 250px;
+    align-self: stretch;
+}
+
+/* Buttons */
+#command-bar button {
+    background: #00ff99;
+    border: none;
+    color: #001a33;
+    font-family: "Fira Code", monospace;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+#command-bar button:hover {
+    background: #00cc77;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    #terminal-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #terminal-container {
+        width: 90%;
+        min-width: unset;
+        max-width: 100%;
+    }
+
+    #command-bar {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        margin-top: 20px;
+    }
 }

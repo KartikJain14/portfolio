@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <!-- Meta Taags -->
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta property="og:title" content="Kartik Jain's Portfolio">
     <meta property="og:locale" content="en_US">
@@ -10,7 +9,7 @@
     <meta property="og:image" content="https://jkartik.in/kartik.png">
     <meta property="og:url" content="https://jkartik.in">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="Kartik Jain's Portfolio">
     <meta name="twitter:title" content="Kartik Jain's Portfolio">
     <meta name="twitter:description" content="Explore the terminal based portfolio of Kartik Jain, a passionate software developer. Discover projects, skills, and more.">
     <meta name="twitter:image" content="https://jkartik.in/kartik.png">
@@ -23,26 +22,32 @@
     <meta name="theme-color" content="#001a33">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- End Meta Tags -->
 
     <title>Kartik Jain | Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Umami for Analytics --> <script defer src="https://cloud.umami.is/script.js" data-website-id="2d866edd-cb4c-4a8e-90b2-f2152ce0a813"></script>
+
+    <!-- Umami Analytics -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="2d866edd-cb4c-4a8e-90b2-f2152ce0a813"></script>
 </head>
 <body>
-    <div id="terminal-container">
-        <div id="terminal">
-            <div id="output"></div>
-            <div class="input-line">
-                <span class="prompt">λ</span>
-                <div class="autocomplete-container">
-                    <span id="inputMirror"></span>
-                    <input type="text" id="commandInput" autofocus autocomplete="off">
-                    <span id="autocompleteHint"></span>
+    <div id="terminal-wrapper">
+        <div id="terminal-container">
+            <div id="terminal">
+                <div id="output"></div>
+                <div class="input-line">
+                    <span class="prompt">λ</span>
+                    <div class="autocomplete-container">
+                        <span id="inputMirror"></span>
+                        <input type="text" id="commandInput" autofocus autocomplete="off">
+                        <span id="autocompleteHint"></span>
+                    </div>
                 </div>
-            </div>          
+            </div>
         </div>
+
+        <div id="command-bar"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
