@@ -3,8 +3,14 @@
 
   <url>
     <loc>https://jkartik.in/</loc>
-    <lastmod>2025-04-24</lastmod>
-    <changefreq>daily</changefreq>
+    <lastmod>2025-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://jkartik.in/resume.pdf</loc>
+    <lastmod>2025-07-05</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
